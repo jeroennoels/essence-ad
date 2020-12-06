@@ -17,4 +17,4 @@ class Monoidal hom cross => Cartesian hom cross where
 class Monoidal hom cross => NumCat hom cross a where
   negateC :: hom a a
   addC :: hom (cross a a) a
-  mulC :: hom (a,a) a
+  mulC :: hom (cross a a) a

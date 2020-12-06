@@ -19,12 +19,12 @@ instance Monoidal Fun Pair where
   parallel (Fun f) (Fun g) = Fun $
     \(Pair a b) -> Pair (f a) (g b)
 
--- instance Cartesian Fun Pair where
---   exl = Fun $ \(Pair a _) -> a
---   exr = Fun $ \(Pair _ b) -> b
---   dup = Fun $ \a -> Pair a a
+instance Cartesian Fun Pair where
+  exl = Fun $ \(Pair a _) -> a
+  exr = Fun $ \(Pair _ b) -> b
+  dup = Fun $ \a -> Pair a a
 
--- instance Num a => NumCat Fun Pair a where
---   negateC = Fun negate
---   addC = Fun $ \(Pair a b) -> a + b
---   mulC = Fun $ \(Pair a b) -> a * b
+instance Num a => NumCat Fun Pair a where
+  negateC = Fun negate
+  addC = Fun $ \(Pair a b) -> a + b
+  mulC = Fun $ \(Pair a b) -> a * b
