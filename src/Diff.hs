@@ -1,5 +1,5 @@
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+{-# LANGUAGE ConstraintKinds, TypeFamilies #-}
 module Diff (Diff(Diff)) where
 
 import Classes
@@ -29,6 +29,7 @@ linear :: (a -> b) -> Diff a b
 linear f = Diff $ \a -> (f a, f)
 
 instance Category Diff where
+  type Obj Diff = NoConstraint
   identity = Diff dIdentity
   compose (Diff g) (Diff f) = Diff (dCompose g f)
 

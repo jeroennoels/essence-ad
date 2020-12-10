@@ -6,10 +6,8 @@ import Classes
 import Fun
 import Diff
 
-fork :: Cartesian hom cross => hom a b -> hom a c -> hom a (cross b c)
 fork f g = parallel f g `compose` dup
 
-timesMinusTwo :: (Cartesian hom cross, NumCat hom cross a) => hom a a
 timesMinusTwo = addC
   `compose` fork (negateC `compose` exl) (negateC `compose` exr)
   `compose` dup

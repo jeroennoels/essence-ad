@@ -1,6 +1,5 @@
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE FlexibleInstances #-}
-
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+{-# LANGUAGE ConstraintKinds, TypeFamilies #-}
 -- Not exporting anything for now, this is just an example.
 module Fun () where
 
@@ -12,6 +11,7 @@ newtype Fun a b = Fun (a -> b)
 data Pair a b = Pair a b
 
 instance Category Fun where
+  type Obj Fun = NoConstraint
   identity = Fun id
   compose (Fun g) (Fun f) = Fun (g . f)
 
