@@ -1,13 +1,10 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-
 module Diff (Diff(Diff)) where
 
 import Classes
 
 type D a b = a -> (b, a -> b)
-
-newtype Diff a b = Diff (D a b)
 
 dIdentity :: D a a
 dIdentity a = (a, id)
@@ -25,9 +22,11 @@ dParallel f g (a,b) = let
   h (x,y) = (f' x, g' y)
   in ((c,d), h)
 
-linear :: (a -> b) -> Diff a b
-linear f = Diff (\a -> (f a, f))
 
+newtype Diff a b = Diff (D a b)
+
+linear :: (a -> b) -> Diff a b
+linear f = Diff $ \a -> (f a, f)
 
 instance Category Diff where
   identity = Diff dIdentity
@@ -39,7 +38,7 @@ instance Monoidal Diff (,) where
 instance Cartesian Diff (,) where
   exl = linear fst
   exr = linear snd
-  dup = linear (\x -> (x,x))
+  dup = linear $ \x -> (x,x)
 
 instance Num a => NumCat Diff (,) a where
   negateC = linear negate
