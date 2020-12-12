@@ -1,6 +1,8 @@
 module Main (main) where
 
-import Differentiation
+import Fun
+import AddFun
+import Examples
 
 main :: IO ()
 main = putStrLn "hello"

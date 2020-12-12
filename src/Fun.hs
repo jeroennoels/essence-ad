@@ -3,7 +3,7 @@
 -- Not exporting anything for now, this is just an example.
 module Fun () where
 
-import Classes
+import Category
 
 -- To avoid confusion I prefer the categorical language does not work directly
 -- with Haskell's build-in type constructors.

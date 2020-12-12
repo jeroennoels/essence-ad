@@ -1,6 +1,6 @@
 {-# LANGUAGE MultiParamTypeClasses, FunctionalDependencies, FlexibleInstances #-}
 {-# LANGUAGE ConstraintKinds, TypeFamilies #-}
-module Classes where
+module Category where
 
 import GHC.Exts (Constraint)
 
@@ -38,3 +38,12 @@ class Scalable hom a where
 class Additive a where
   zero :: a
   add :: a -> a -> a
+
+
+fork :: (Obj hom a, Obj hom b, Obj hom c, Obj hom (cross a a), Obj hom (cross b c),
+         Cartesian hom cross) => hom a b -> hom a c -> hom a (cross b c)
+fork f g = parallel f g `compose` dup
+
+join :: (Obj hom a, Obj hom b, Obj hom c, Obj hom (cross a b), Obj hom (cross c c),
+         Cocartesian hom cross) => hom a c -> hom b c -> hom (cross a b) c
+join f g = jam `compose` parallel f g

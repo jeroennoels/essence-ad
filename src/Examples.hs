@@ -1,12 +1,7 @@
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-module Differentiation where
+module Examples where
 
-import Classes
-import Fun
+import Category
 import Diff
-
-fork f g = parallel f g `compose` dup
 
 timesMinusTwo = addC
   `compose` fork (negateC `compose` exl) (negateC `compose` exr)
@@ -20,4 +15,3 @@ example = let Diff f = timesMinusTwo in f
 --   (fork
 --    (mulC `compose` (fork fst fst))
 --    (mulC `compose` (fork snd snd)))
-

@@ -2,7 +2,7 @@
 {-# LANGUAGE ConstraintKinds, TypeFamilies #-}
 module Diff (Diff(Diff)) where
 
-import Classes
+import Category
 
 type D a b = a -> (b, a -> b)
 
