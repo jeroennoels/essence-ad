@@ -35,10 +35,6 @@ class Monoidal hom cross => NumCat hom cross a where
 class Scalable hom a where
   scale :: Obj hom a => a -> hom a a
 
-class Additive a where
-  zero :: a
-  add :: a -> a -> a
-
 
 fork :: (Obj hom a, Obj hom b, Obj hom c, Obj hom (cross a a), Obj hom (cross b c),
          Cartesian hom cross) => hom a b -> hom a c -> hom a (cross b c)

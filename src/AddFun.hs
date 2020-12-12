@@ -3,6 +3,7 @@
 module AddFun () where
 
 import Category
+import Additive
 
 newtype AddFun a b = AddFun (a -> b)
 
@@ -18,10 +19,6 @@ instance Cartesian AddFun (,) where
   exl = AddFun fst
   exr = AddFun snd
   dup = AddFun $ \a -> (a,a)
-
-instance (Additive a, Additive b) => Additive (a,b) where
-  zero = (zero, zero)
-  add (a,b) (c,d) = (add a c, add b d)
 
 instance Cocartesian AddFun (,) where
   inl = AddFun $ \a -> (a, zero)
