@@ -9,13 +9,16 @@ instance Additive Double where
   zero = 0
   add = (+)
 
-magSqr ::(Num a, Additive a) => Diff (a,a ) a
-magSqr = addC `compose`
-  (fork
-   (mulC `compose` (fork exl exl))
-   (mulC `compose` (fork exr exr)))
+sqr :: (Num a, Additive a) => Diff a a
+sqr = mulC `compose` dup
 
-example x = (y, f' x)
+magSqr :: (Num a, Additive a) => Diff (a,a) a
+magSqr = addC `compose` parallel sqr sqr
+
+power8 :: (Num a, Additive a) => Diff a a
+power8 = sqr `compose` sqr `compose` sqr
+
+example x = (y, f' 1)
   where
-    Diff f = magSqr
+    Diff f = power8
     (y, AddFun f') = f x
