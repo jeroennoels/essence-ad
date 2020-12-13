@@ -1,6 +1,6 @@
 {-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
 {-# LANGUAGE ConstraintKinds, TypeFamilies #-}
-module AddFun () where
+module AddFun (AddFun(AddFun)) where
 
 import Category
 import Additive

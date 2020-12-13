@@ -1,17 +1,21 @@
 module Examples where
 
 import Category
+import Additive
+import AddFun
 import Diff
 
-timesMinusTwo = addC
-  `compose` fork (negateC `compose` exl) (negateC `compose` exr)
-  `compose` dup
+instance Additive Double where
+  zero = 0
+  add = (+)
 
-example :: Double -> (Double, Double -> Double)
-example = let Diff f = timesMinusTwo in f
+magSqr ::(Num a, Additive a) => Diff (a,a ) a
+magSqr = addC `compose`
+  (fork
+   (mulC `compose` (fork exl exl))
+   (mulC `compose` (fork exr exr)))
 
--- magSqr :: Num a => (a,a) -> a
--- magSqr = addC `compose`
---   (fork
---    (mulC `compose` (fork fst fst))
---    (mulC `compose` (fork snd snd)))
+example x = (y, f' x)
+  where
+    Diff f = magSqr
+    (y, AddFun f') = f x
